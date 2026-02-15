@@ -1,0 +1,57 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: health-shop-api
+
+  # PostgreSQL Configuration (Supabase Transaction Pooler)
+  datasource:
+    # Appended ?prepareThreshold=0 to disable prepared statements (required for Supabase Transaction Pooler)
+    url: jdbc:postgresql://aws-1-ap-south-1.pooler.supabase.com:6543/postgres?prepareThreshold=0
+    username: postgres.wxsrpznojerwbvchnsvd
+    password: Pushkarsingh@1234
+    driver-class-name: org.postgresql.Driver
+
+  # JPA / Hibernate
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    open-in-view: false
+
+  # MongoDB Configuration (Atlas)
+  data:
+    mongodb:
+      uri: mongodb+srv://ps3639944_db_user:7ebc78uWBeLOzhup@healthshop-analytics.4tof8mm.mongodb.net/healthshop_analytics?appName=healthshop-analytics
+      auto-index-creation: true
+
+  # Jackson
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: non_null
+
+# JWT Configuration
+jwt:
+  secret: YWktaGVhbHRoLXNob3BwaW5nLXBvcnRhbC1zZWNyZXQta2V5LTIwMjYtdmVyeS1sb25nLXNlY3VyZS1rZXk=
+  expiration: 86400000  # 24 hours
+
+# Swagger
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+# Logging
+logging:
+  level:
+    com.healthshop: DEBUG
+    org.springframework.security: INFO

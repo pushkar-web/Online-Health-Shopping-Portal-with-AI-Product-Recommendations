@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: healthshop-postgres
+    environment:
+      POSTGRES_DB: healthshop
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mongodb:
+    image: mongo:7
+    container_name: healthshop-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: healthshop-api
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/healthshop
+      SPRING_DATA_MONGODB_URI: mongodb://mongodb:27017/healthshop_analytics
+    depends_on:
+      - postgres
+      - mongodb
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: healthshop-web
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://backend:8080
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  mongo_data:
