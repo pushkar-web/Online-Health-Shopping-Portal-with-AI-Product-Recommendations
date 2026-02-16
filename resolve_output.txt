@@ -1,0 +1,2 @@
+=== RESOLVING CONFLICTS === 
+Updated 6 paths from the index
