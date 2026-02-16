@@ -1,0 +1,11 @@
+=== ENVIRONMENT CHECK === 
+git version 2.45.1.windows.1
+Vercel CLI 48.2.6
+48.2.6
+'CONFIG' is not recognized as an internal or external command,
+operable program or batch file.
+Initialized empty Git repository in D:/nline health shopping portal with product recommendation Project/.git/
+=== GIT REMOTE === 
+error: No such remote: 'origin'
+'COMMIT' is not recognized as an internal or external command,
+operable program or batch file.
