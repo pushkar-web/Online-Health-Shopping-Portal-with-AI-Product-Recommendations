@@ -1,96 +1,141 @@
-# Online Health Shopping Portal with AI Recommendations
+# 🏥 Online Health Shopping Portal with AI Recommendations
 
-A comprehensive e-commerce platform dedicated to health and wellness, featuring an advanced "User-Based Expert System" for personalized product recommendations, symptom analysis, and health insights.
+![Project Status](https://img.shields.io/badge/Status-Active-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-blue)
+![Tech Stack](https://img.shields.io/badge/Stack-Next.js%20%7C%20Spring%20Boot-blueviolet)
 
-## 🚀 Project Overview
+A next-generation e-commerce platform dedicated to health and wellness. This project utilizes an **AI-driven User-Based Expert System** to provide personalized product recommendations, symptom analysis, and health insights, bridging the gap between standard e-commerce and personalized health consultancy.
 
-This project is a modern, full-stack web application designed to help users find the right health supplements and products based on their specific needs. Unlike standard e-commerce sites, it integrates **AI-driven algorithms** to understand user health profiles, analyze symptoms, and provide tailored advice including lifestyle tips and severity assessments.
+---
 
-## 👥 User Roles
+## 🚀 Key Features
 
-### **1. AI-Powered User (Customer)**
-*   **Personalized Dashboard**: View health score, daily tips, and recommended products based on health goals.
-*   **Shop & Browse**: Explore a vast catalog of health products with advanced filtering.
-*   **AI Health Assistant**: Chat with an intelligent bot to describe symptoms and get instant product suggestions, lifestyle advice, and medical severity warnings.
-*   **Health Tools**:
-    *   **Symptom Checker**: Identify potential causes and remedies for symptoms.
-    *   **Interaction Checker**: Check for potential interactions between supplements/medications.
-    *   **Dosage Calculator**: Get personalized dosage recommendations based on profile.
-    *   **Product Comparison**: Smart comparison of nutritional values and benefits.
-*   **Order Management**: Place orders, track status, view history, and manage wishlist.
-*   **Profile Management**: Update health metrics (age, weight, height), allergies, and health goals for better recommendations.
+### 🧠 AI & Intelligent Systems
+*   **Smart Recommendation Engine**:
+    *   **Content-Based Filtering**: Matches products to your health goals (e.g., Immunity, Sleep, Muscle Gain).
+    *   **Collaborative Filtering**: "People like you bought..." recommendations.
+    *   **Demographic Targeting**: Tailors suggestions based on age, gender, and lifestyle.
+*   **NLP Symptom Checker**: Describe your symptoms in plain English (e.g., "I have trouble sleeping and feel stressed"), and the system identifies potential issues and recommends suitable products (e.g., Melatonin, Ashwagandha).
+*   **Health Score & Insights**: Analyzes your profile to calculate a dynamic "Health Score" and identifies nutritional gaps.
+*   **Interaction Checker**: Automatically warns users of potential conflicts between supplements and medications.
 
-### **2. Administrator**
-*   **Dashboard**: Overview of sales, user growth, and popular products.
-*   **Product Management**: Add, edit, or remove products, categories, and inventory.
-*   **Order Management**: View and process customer orders.
-*   **User Management**: Oversee user accounts and system access.
+### 🛍️ Comprehensive E-Commerce
+*   **Vast Product Catalog**:
+    *   **Vitamins & Supplements**: Multivitamins, Omega-3, Probiotics, etc.
+    *   **Diabetic Care**: Sugar support, diabetic-friendly snacks, monitoring tools.
+    *   **Fitness Nutrition**: Protein powders, BCAAs, pre-workouts.
+    *   **Medical Devices**: BP monitors, oximeters, thermometers.
+    *   **Personal Care**: Organic skin care, hygiene products.
+*   **Advanced Dashboard**: Features a modern **Bento Grid** layout for a quick overview of health stats, recent orders, and daily tips.
+*   **Smart Cart & Checkout**: Integrated coupon system and seamless checkout flow.
 
-## 🧠 AI & Backend Intelligence
+### 👥 User Roles
+*   **Customer**: Browse products, manage health profile, view AI insights, track orders.
+*   **Administrator**: Manage products, processed orders, view platform analytics, and manage users.
 
- The core of the platform is a robust set of rule-based AI engines located in `com.healthshop.ai`:
-
-*   **Recommendation Engine**: uses a hybrid approach:
-    *   **Content-Based**: Matches products to your specific health goals (e.g., "Immunity", "Muscle Gain").
-    *   **Collaborative Filtering**: "Customers also bought" logic to find products purchased by similar users.
-    *   **Demographic Filtering**: Suggestions popular in your specific age group.
-*   **Health Insights Engine**: Analyzes your profile to calculate a "Health Score", identify nutrition gaps, and generate daily health tips.
-*   **Symptom Analysis NLP**: Uses natural language pattern matching to identify symptoms from free-text descriptions (e.g., "trouble sleeping") and map them to relevant product categories (e.g., Melatonin, Magnesium).
-*   **Safety Engines**:
-    *   **Interaction Checker**: Prevents harmful combinations.
-    *   **Dosage Calculator**: Adjusts standard dosages based on user weight/age.
+---
 
 ## 🛠️ Tech Stack
 
 ### **Frontend**
-*   **Framework**: [Next.js 14](https://nextjs.org/) (React)
+*   **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
 *   **Language**: TypeScript
-*   **Styling**: Tailwind CSS (Glassmorphism UI design)
-*   **Icons**: Lucide React
-*   **State Management**: React Hooks
+*   **Styling**: Tailwind CSS, Framer Motion (Animations), Lucide React (Icons)
+*   **UI/UX**: Glassmorphism design, Bento Grid layouts, Responsive mobile-first design.
 
 ### **Backend**
-*   **Framework**: Spring Boot 3.2.3 (Java 17)
-*   **Security**: Spring Security + JWT (JSON Web Tokens)
-*   **Documentation**: Swagger / OpenAPI
-*   **Data Access**: Spring Data JPA & Spring Data MongoDB
-*   **Utilities**: Lombok, Validation API
+*   **Framework**: Spring Boot 3.2.3
+*   **Language**: Java 17
+*   **Security**: Spring Security + JWT (Stateless Authentication)
+*   **Database**:
+    *   **PostgreSQL**: Primary transactional data (Users, Orders, Products).
+    *   **MongoDB**: Analytics, logs, and unstructured health data.
+*   **Documentation**: Swagger / OpenAPI 3.0
 
-### **Database**
-*   **Relational**: PostgreSQL (Primary data: Users, Products, Orders)
-*   **NoSQL**: MongoDB (Analytics, Logs, or Flexible Data)
+---
 
-## 🏃‍♂️ How to Run
+## 🏃‍♂️ Getting Started
 
-### **Prerequisites**
-*   Java JDK 17+
-*   Node.js 18+
-*   PostgreSQL & MongoDB installed and running
+### Prerequisites
+*   **Java JDK 17+**
+*   **Node.js 18+**
+*   **PostgreSQL** (Running on port 5432)
+*   **MongoDB** (Running on port 27017)
 
-### **Quick Start**
+### Experience the App (Quick Start)
 
-You can use the provided batch file to start both services:
+We have provided convenient batch scripts for Windows users:
+
+1.  **Run Everything**:
+    ```bash
+    ./run_app.bat
+    ```
+    *Starts the backend server and frontend development server simultaneously.*
+
+2.  **Deploy / Update**:
+    ```bash
+    ./deploy_update.bat
+    ```
+    *Pushes changes to GitHub and triggers a Vercel deployment.*
+
+### Manual Setup
+
+#### 1. Backend Setup
 ```bash
-./run_app.bat
+cd backend
+# Update application.properties with your DB credentials if needed
+./mvnw spring-boot:run
+```
+*   Server runs at: `http://localhost:8080`
+*   Swagger UI: `http://localhost:8080/swagger-ui/index.html`
+
+#### 2. Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev
+```
+*   Client runs at: `http://localhost:3000`
+
+---
+
+## 📁 Project Structure
+
+```
+├── backend/
+│   ├── src/main/java/com/healthshop/
+│   │   ├── ai/          # AI Logic (Recommendation, NLP)
+│   │   ├── config/      # Security, CORS, Swagger Config
+│   │   ├── controller/  # REST API Endpoints
+│   │   ├── model/       # JPA & Mongo Entities
+│   │   └── service/     # Business Logic
+│   └── src/main/resources/
+│       └── application.properties # Configuration
+│
+├── frontend/
+│   ├── src/app/         # Next.js App Router Pages
+│   │   ├── dashboard/   # User Dashboard (Bento Grid)
+│   │   ├── products/    # Product Listing & Details
+│   │   ├── admin/       # Admin Console
+│   │   └── ...
+│   ├── src/components/  # Reusable UI Components
+│   └── public/          # Static Assets
+└── ...
 ```
 
-**Manual Start:**
+## 🔐 Security Features
 
-1.  **Backend**:
-    ```bash
-    cd backend
-    ./mvnw spring-boot:run
-    ```
-    *Server runs on: `http://localhost:8080`*
+*   **JWT Authentication**: Secure stateless login.
+*   **Role-Based Access Control (RBAC)**: Distinct access for `USER` and `ADMIN`.
+*   **Input Validation**: Strict validation on all API endpoints.
 
-2.  **Frontend**:
-    ```bash
-    cd frontend
-    npm install
-    npm run dev
-    ```
-    *Client runs on: `http://localhost:3000`*
+## 🤝 Contributing
 
-## 📚 API Documentation
-Once the backend is running, access the full API documentation at:
-`http://localhost:8080/swagger-ui/index.html`
+1.  Fork the repository.
+2.  Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4.  Push to the branch (`git push origin feature/AmazingFeature`).
+5.  Open a Pull Request.
+
+---
+*Built for the Future of Health E-Commerce.*
