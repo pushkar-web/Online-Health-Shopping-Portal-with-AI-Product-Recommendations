@@ -4,7 +4,9 @@ import { useSearchParams } from 'next/navigation';
 import { productAPI, categoryAPI } from '@/lib/api';
 import ProductCard from '@/components/ProductCard';
 
-export default function ProductsPage() {
+import { Suspense } from 'react';
+
+function ProductsContent() {
     const searchParams = useSearchParams();
     const [products, setProducts] = useState<any[]>([]);
     const [categories, setCategories] = useState<any[]>([]);
@@ -108,5 +110,13 @@ export default function ProductsPage() {
                 </div>
             )}
         </div>
+    );
+}
+
+export default function ProductsPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen pt-20 flex items-center justify-center text-white">Loading products...</div>}>
+            <ProductsContent />
+        </Suspense>
     );
 }
