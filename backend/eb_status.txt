@@ -1,0 +1,11 @@
+Environment details for: dev-env
+  Application name: health-shop-api
+  Region: us-east-1
+  Deployed Version: app-260217_210905886922
+  Environment ID: e-yapamu8dbm
+  Platform: arn:aws:elasticbeanstalk:us-east-1::platform/Corretto 17 running on 64bit Amazon Linux 2/3.10.4
+  Tier: WebServer-Standard-1.0
+  CNAME: dev-env.eba-bxahe579.us-east-1.elasticbeanstalk.com
+  Updated: 2026-02-17 15:42:32.954000+00:00
+  Status: Ready
+  Health: Green

@@ -1,0 +1,10 @@
+=== ENVIRONMENT CHECK === 
+git version 2.45.1.windows.1
+Vercel CLI 48.2.6
+48.2.6
+=== DEPLOYING FRONTEND === 
+Current Directory: D:\nline health shopping portal with product recommendation Project\frontend 
+Vercel CLI 48.2.6
+The "--name" option is deprecated (https://vercel.link/name-flag)
+Retrieving project…
+^C

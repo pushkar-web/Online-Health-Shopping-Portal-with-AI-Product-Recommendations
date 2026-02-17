@@ -1,2 +1,37 @@
 === RESOLVING CONFLICTS === 
 Updated 6 paths from the index
+warning: in the working copy of '.vercel/README.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'resolve_output.txt', LF will be replaced by CRLF the next time Git touches it
+[main 892586f] Merge remote: Keeping local changes
+=== PUSHING === 
+Cygwin WARNING:
+  Couldn't compute FAST_CWD pointer.  This typically occurs if you're using
+  an older Cygwin version on a newer Windows.  Please update to the latest
+  available Cygwin version from https://cygwin.com/.  If the problem persists,
+  please see https://cygwin.com/problems.html
+
+Cygwin WARNING:
+  Couldn't compute FAST_CWD pointer.  This typically occurs if you're using
+  an older Cygwin version on a newer Windows.  Please update to the latest
+  available Cygwin version from https://cygwin.com/.  If the problem persists,
+  please see https://cygwin.com/problems.html
+
+branch 'main' set up to track 'origin/main'.
+To https://github.com/pushkar-web/Online-Health-Shopping-Portal-with-AI-Product-Recommendations.git
+   ff336e2..892586f  main -> main
+=== VERCEL DEPLOY === 
+Vercel CLI 48.2.6
+Retrieving project…
+The `name` property in vercel.json is deprecated (https://vercel.link/name-prop)
+Deploying ps3639944-gmailcoms-projects/health-shopping-portal
+Uploading [--------------------] (0.0B/178.1KB)
+Uploading [======--------------] (60.5KB/178.1KB)
+Uploading [==========----------] (92.5KB/178.1KB)
+Uploading [===============-----] (140.5KB/178.1KB)
+Uploading [====================] (178.1KB/178.1KB)
+Inspect: https://vercel.com/ps3639944-gmailcoms-projects/health-shopping-portal/57kxobKAvvnoC7BV6sCcaaAxuWVH [6s]
+Production: https://health-shopping-portal-ovs5au3zy-ps3639944-gmailcoms-projects.vercel.app [6s]
+https://health-shopping-portal-ovs5au3zy-ps3639944-gmailcoms-projects.vercel.appBuilding
+Building
+Completing
+=== DONE === 

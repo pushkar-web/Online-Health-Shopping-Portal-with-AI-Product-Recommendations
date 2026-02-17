@@ -1,0 +1,13 @@
+
+> healthshop-frontend@1.0.0 build
+> node --max-old-space-size=4096 node_modules/next/dist/bin/next build
+
+   Γû▓ Next.js 14.1.0
+
+   Creating an optimized production build ...
+Failed to compile.
+
+Error: EISDIR: illegal operation on a directory, readlink 'D:\nline health shopping portal with product recommendation Project\frontend\node_modules\next\dist\pages\_app.js'
+
+
+> Build failed because of webpack errors
