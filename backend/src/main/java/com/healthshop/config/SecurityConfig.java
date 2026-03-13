@@ -67,7 +67,17 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/ai/compare").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/ai/interaction-check").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/ai/chat").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/ai/rag/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/ai/rag/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/ai/dosage/**").permitAll()
+                        // Voice, Scan, Shield, Learn endpoints
+                        .requestMatchers(HttpMethod.POST, "/api/ai/voice/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/ai/scan/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/ai/health-shield").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/ai/learn/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/ai/learn/**").permitAll()
+                        // Challenge endpoints (GET public, POST authenticated)
+                        .requestMatchers(HttpMethod.GET, "/api/challenges/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         // Admin endpoints
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")

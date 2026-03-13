@@ -1,11 +1,16 @@
 import axios from 'axios';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+// In production (Vercel HTTPS), use relative URLs so Next.js rewrites proxy to backend.
+// This avoids HTTPS->HTTP mixed content blocking by browsers.
+// In development, call backend directly on localhost.
+const API_BASE = process.env.NODE_ENV === 'development'
+    ? (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080')
+    : '';
 
 const api = axios.create({
     baseURL: API_BASE,
     headers: { 'Content-Type': 'application/json' },
-    timeout: 15000,
+    timeout: 30000,
 });
 
 api.interceptors.request.use((config) => {
@@ -96,9 +101,44 @@ export const aiAPI = {
     nutritionGaps: () => api.get('/api/ai/nutrition-gaps'),
     // Daily Health Tips
     dailyTips: () => api.get('/api/ai/daily-tips'),
-    // Enhanced AI Chat
+    // Enhanced AI Chat (rule-based)
     chat: (message: string, history?: any[]) =>
         api.post('/api/ai/chat', { message, history }),
+    // RAG Agent (Groq LLM-powered)
+    ragChat: (message: string, history?: { role: string; content: string }[]) =>
+        api.post('/api/ai/rag/chat', { message, history }),
+    ragQuick: (query: string) =>
+        api.post('/api/ai/rag/quick', { query }),
+    ragRecommend: (healthConcern: string) =>
+        api.post('/api/ai/rag/recommend', { healthConcern }),
+    ragEducate: (topic: string) =>
+        api.post('/api/ai/rag/educate', { topic }),
+    ragSymptoms: (symptoms: string, history?: { role: string; content: string }[]) =>
+        api.post('/api/ai/rag/symptoms', { symptoms, history }),
+    ragStats: () => api.get('/api/ai/rag/stats'),
+    // Voice Assistant
+    voiceIntent: (transcript: string) =>
+        api.post('/api/ai/voice/intent', { transcript }),
+    // Supplement Scanner
+    scanAnalyze: (ocrText: string, userAllergies?: string[]) =>
+        api.post('/api/ai/scan/analyze', { ocrText, userAllergies }),
+    // Health Shield
+    healthShield: () => api.get('/api/ai/health-shield'),
+    // Health Literacy Hub
+    learnTopics: () => api.get('/api/ai/learn/topics'),
+    learnLesson: (topicId: string, level?: string) =>
+        api.get(`/api/ai/learn/lesson/${topicId}${level ? `?level=${level}` : ''}`),
+    learnQuizSubmit: (topicId: string, answers: number[]) =>
+        api.post('/api/ai/learn/quiz/submit', { topicId, answers }),
+};
+
+// Challenges
+export const challengeAPI = {
+    getAll: () => api.get('/api/challenges'),
+    join: (id: number) => api.post(`/api/challenges/${id}/join`),
+    getProgress: (id: number) => api.get(`/api/challenges/${id}/my-progress`),
+    completeTask: (id: number) => api.post(`/api/challenges/${id}/complete-task`),
+    getLeaderboard: (id: number) => api.get(`/api/challenges/${id}/leaderboard`),
 };
 
 // Health Profile

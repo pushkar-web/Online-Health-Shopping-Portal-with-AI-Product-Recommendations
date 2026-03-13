@@ -30,15 +30,19 @@ export default function Navbar() {
         { href: '/', label: 'Home', icon: '🏠' },
         { href: '/products', label: 'Products', icon: '🛍️' },
         { href: '/recommendations', label: 'AI Recommend', icon: '🤖' },
-        { href: '/symptom-search', label: 'Health Chat', icon: '💬' },
+        { href: '/ai/chat', label: 'Health Chat', icon: '💬' },
     ];
 
     const aiLinks = [
-        { href: '/ai/chat', label: 'AI Health Chat', icon: '💬', desc: 'Symptom analysis & tips' },
+        { href: '/ai/chat', label: 'AI Health Chat', icon: '💬', desc: 'RAG + Groq powered chat' },
+        { href: '/symptom-search', label: 'Symptom Checker', icon: '🩺', desc: 'AI symptom analysis' },
+        { href: '/ai/scan', label: 'Scan Label', icon: '📷', desc: 'Scan supplement bottles' },
+        { href: '/health-shield', label: 'Health Shield', icon: '🛡️', desc: 'Seasonal threat alerts' },
+        { href: '/challenges', label: 'Challenges', icon: '🏆', desc: 'Wellness quests & rewards' },
+        { href: '/learn', label: 'Learn Health', icon: '📚', desc: 'AI health lessons & quizzes' },
         { href: '/ai/dashboard', label: 'AI Dashboard', icon: '📊', desc: 'Health score & insights' },
         { href: '/ai/interactions', label: 'Interaction Check', icon: '⚠️', desc: 'Drug interactions' },
         { href: '/ai/compare', label: 'Smart Compare', icon: '⚖️', desc: 'Compare products with AI' },
-        { href: '/symptom-search', label: 'Symptom Search', icon: '🩺', desc: 'Legacy symptom checker' },
     ];
 
     const handleSearch = (e: React.FormEvent) => {

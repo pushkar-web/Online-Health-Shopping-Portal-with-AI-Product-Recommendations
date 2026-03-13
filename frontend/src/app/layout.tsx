@@ -3,6 +3,7 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ToastProvider from '@/components/ToastProvider';
+import VoiceAssistant from '@/components/VoiceAssistant';
 
 export const metadata: Metadata = {
     title: 'HealthShop AI - Smart Health Shopping Portal',
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <main className="min-h-screen pt-16">{children}</main>
                 <Footer />
                 <ToastProvider />
+                <VoiceAssistant />
             </body>
         </html>
     );

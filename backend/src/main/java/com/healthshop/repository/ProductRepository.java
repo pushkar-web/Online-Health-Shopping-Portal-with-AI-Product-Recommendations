@@ -40,4 +40,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p WHERE p.active = true AND p.suitableAgeGroups LIKE %:ageGroup% ORDER BY p.purchaseCount DESC")
     List<Product> findPopularByAgeGroup(@Param("ageGroup") String ageGroup, Pageable pageable);
+
+    long countByCategoryId(Long categoryId);
+
+    List<Product> findTop20ByActiveOrderByPurchaseCountDesc(boolean active);
+
+    List<Product> findTop20ByActiveOrderByAverageRatingDesc(boolean active);
 }

@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/ai")
 @RequiredArgsConstructor
@@ -26,12 +29,61 @@ public class AIController {
     private final RecommendationEngine recommendationEngine;
     private final UserRepository userRepository;
     private final com.healthshop.service.AIAdminService aiAdminService;
+    private final RAGAgent ragAgent;
+    private final VoiceIntentService voiceIntentService;
+    private final SupplementScanService supplementScanService;
+    private final HealthShieldService healthShieldService;
+    private final HealthLiteracyService healthLiteracyService;
+
+    // ========== RAG AGENT ENDPOINTS ==========
+    @PostMapping("/rag/chat")
+    @Operation(summary = "RAG-powered AI health chat with Groq LLM and knowledge base retrieval")
+    public ResponseEntity<AIDTO.RAGChatResponse> ragChat(
+            @RequestBody AIDTO.RAGChatRequest request, Authentication auth) {
+        Long userId = auth != null ? getUserIdSafe(auth) : null;
+        List<Map<String, String>> history = request.getHistory() != null ? request.getHistory() : List.of();
+        return ResponseEntity.ok(ragAgent.chat(request.getMessage(), userId, history));
+    }
+
+    @PostMapping("/rag/quick")
+    @Operation(summary = "Quick RAG query without conversation history")
+    public ResponseEntity<AIDTO.RAGChatResponse> ragQuick(@RequestBody AIDTO.RAGQuickQuery request) {
+        return ResponseEntity.ok(ragAgent.quickQuery(request.getQuery()));
+    }
+
+    @PostMapping("/rag/recommend")
+    @Operation(summary = "RAG-powered product recommendation for a specific health concern")
+    public ResponseEntity<AIDTO.RAGChatResponse> ragRecommend(
+            @RequestBody AIDTO.RAGRecommendRequest request, Authentication auth) {
+        Long userId = auth != null ? getUserIdSafe(auth) : null;
+        return ResponseEntity.ok(ragAgent.recommendProducts(request.getHealthConcern(), userId));
+    }
+
+    @PostMapping("/rag/educate")
+    @Operation(summary = "RAG-powered health education on a topic")
+    public ResponseEntity<AIDTO.RAGChatResponse> ragEducate(@RequestBody AIDTO.RAGEducationRequest request) {
+        return ResponseEntity.ok(ragAgent.healthEducation(request.getTopic()));
+    }
+
+    @PostMapping("/rag/symptoms")
+    @Operation(summary = "RAG + Groq LLM powered symptom analysis with severity, lifestyle tips, and product recommendations")
+    public ResponseEntity<AIDTO.SymptomAnalysisResponse> ragSymptomAnalysis(
+            @RequestBody AIDTO.SymptomAnalysisRequest request, Authentication auth) {
+        Long userId = auth != null ? getUserIdSafe(auth) : null;
+        List<Map<String, String>> history = request.getHistory() != null ? request.getHistory() : List.of();
+        return ResponseEntity.ok(ragAgent.analyzeSymptoms(request.getSymptoms(), userId, history));
+    }
+
+    @GetMapping("/rag/stats")
+    @Operation(summary = "Get RAG knowledge base statistics")
+    public ResponseEntity<Map<String, Object>> ragStats() {
+        return ResponseEntity.ok(ragAgent.getRAGStats());
+    }
 
     // ========== ADMIN AI DASHBOARD ==========
     @GetMapping("/admin/stats")
     @Operation(summary = "Get system-wide AI statistics for admin dashboard")
     public ResponseEntity<AIDTO.AdminAIStatsResponse> getAdminStats(Authentication auth) {
-        // In a real app, verify admin role here or via SecurityConfig
         return ResponseEntity.ok(aiAdminService.getAdminStats());
     }
 
@@ -107,6 +159,50 @@ public class AIController {
             @RequestBody AIDTO.ChatRequest request, Authentication auth) {
         Long userId = auth != null ? getUserIdSafe(auth) : null;
         return ResponseEntity.ok(recommendationEngine.enhancedChat(request.getMessage(), userId));
+    }
+
+    // ========== VOICE ASSISTANT ==========
+    @PostMapping("/voice/intent")
+    @Operation(summary = "Voice assistant — parse spoken text into structured action and execute")
+    public ResponseEntity<AIDTO.VoiceIntentResponse> voiceIntent(
+            @RequestBody AIDTO.VoiceIntentRequest request, Authentication auth) {
+        Long userId = auth != null ? getUserIdSafe(auth) : null;
+        return ResponseEntity.ok(voiceIntentService.processVoiceIntent(request.getTranscript(), userId));
+    }
+
+    // ========== SUPPLEMENT SCANNER ==========
+    @PostMapping("/scan/analyze")
+    @Operation(summary = "Analyze OCR text from supplement label — extract ingredients, check safety, find store matches")
+    public ResponseEntity<AIDTO.ScanAnalysisResponse> scanAnalyze(@RequestBody AIDTO.ScanRequest request) {
+        return ResponseEntity.ok(supplementScanService.analyzeScan(request.getOcrText(), request.getUserAllergies()));
+    }
+
+    // ========== HEALTH SHIELD ==========
+    @GetMapping("/health-shield")
+    @Operation(summary = "Predictive seasonal health shield — upcoming threats, risk scores, prevention bundles")
+    public ResponseEntity<AIDTO.HealthShieldResponse> healthShield(Authentication auth) {
+        Long userId = auth != null ? getUserIdSafe(auth) : null;
+        return ResponseEntity.ok(healthShieldService.getPersonalizedShield(userId));
+    }
+
+    // ========== HEALTH LITERACY HUB ==========
+    @GetMapping("/learn/topics")
+    @Operation(summary = "Get all available health lesson topics")
+    public ResponseEntity<List<AIDTO.LessonTopic>> getLearnTopics() {
+        return ResponseEntity.ok(healthLiteracyService.getAllTopics());
+    }
+
+    @GetMapping("/learn/lesson/{topicId}")
+    @Operation(summary = "Generate an AI lesson for a specific topic")
+    public ResponseEntity<AIDTO.LessonResponse> getLesson(
+            @PathVariable String topicId, @RequestParam(required = false) String level) {
+        return ResponseEntity.ok(healthLiteracyService.generateLesson(topicId, level));
+    }
+
+    @PostMapping("/learn/quiz/submit")
+    @Operation(summary = "Submit quiz answers and get results")
+    public ResponseEntity<AIDTO.QuizResultResponse> submitQuiz(@RequestBody AIDTO.QuizSubmitRequest request) {
+        return ResponseEntity.ok(healthLiteracyService.evaluateQuiz(request.getTopicId(), request.getAnswers()));
     }
 
     private Long getUserId(Authentication auth) {

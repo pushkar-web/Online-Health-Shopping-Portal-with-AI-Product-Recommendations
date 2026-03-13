@@ -273,4 +273,187 @@ public class AIDTO {
         private String label;
         private Long value;
     }
+
+    // ========== RAG Agent ==========
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class RAGChatRequest {
+        private String message;
+        private List<Map<String, String>> history;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class RAGChatResponse {
+        private String message;
+        private List<ProductDTO.ProductResponse> suggestedProducts;
+        private List<String> followUpQuestions;
+        private List<String> sources;
+        private Long responseTimeMs;
+        private Integer knowledgeChunksUsed;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class RAGQuickQuery {
+        private String query;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class RAGRecommendRequest {
+        private String healthConcern;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class RAGEducationRequest {
+        private String topic;
+    }
+
+    // ========== Symptom Analysis (RAG + Groq) ==========
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class SymptomAnalysisRequest {
+        private String symptoms;
+        private List<Map<String, String>> history;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class SymptomAnalysisResponse {
+        private String analysis;
+        private String severity; // "mild", "moderate", "severe"
+        private List<String> identifiedSymptoms;
+        private List<String> possibleConditions;
+        private List<String> lifestyleTips;
+        private List<String> dietaryRecommendations;
+        private String whenToSeeDoctor;
+        private List<String> supplementKeywords;
+        private List<ProductDTO.ProductResponse> suggestedProducts;
+        private List<String> followUpQuestions;
+        private List<String> sources;
+        private Long responseTimeMs;
+        private Integer knowledgeChunksUsed;
+    }
+
+    // ========== Voice Assistant ==========
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class VoiceIntentRequest { private String transcript; }
+
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class VoiceIntentResponse {
+        private String action;
+        private String query;
+        private String productName;
+        private Integer quantity;
+        private Long productId;
+        private String spokenResponse;
+        private String detailedResponse;
+        private String severity;
+        private List<ProductDTO.ProductResponse> products;
+        private Boolean requiresConfirmation;
+        private Long responseTimeMs;
+    }
+
+    // ========== Supplement Scanner ==========
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class ScanRequest { private String ocrText; private List<String> userAllergies; }
+
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class ScanAnalysisResponse {
+        private String productName;
+        private String brand;
+        private String supplementType;
+        private String summary;
+        private List<ScanIngredient> ingredients;
+        private List<String> allergens;
+        private List<String> warnings;
+        private List<ScanAllergenAlert> allergenAlerts;
+        private List<ProductDTO.ProductResponse> matchingProducts;
+        private Integer safetyScore;
+        private Long responseTimeMs;
+    }
+
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class ScanIngredient { private String name; private String commonName; private String amount; private String unit; }
+
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class ScanAllergenAlert { private String allergen; private String severity; private String message; }
+
+    // ========== Health Shield ==========
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class HealthShieldResponse {
+        private String currentMonth;
+        private Integer overallPreparedness;
+        private List<ThreatAlert> threats;
+        private List<ProductDTO.ProductResponse> recommendedProducts;
+        private List<MonthThreatSummary> timeline;
+        private Long responseTimeMs;
+    }
+
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class ThreatAlert {
+        private String name; private String severity; private String description;
+        private String month; private Integer monthOffset;
+        private List<String> productTags; private List<String> riskFactors; private Integer personalRiskScore;
+    }
+
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class MonthThreatSummary { private String month; private Integer threatCount; private String maxSeverity; private Boolean isCurrent; }
+
+    // ========== Health Challenges ==========
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class HealthChallenge {
+        private Long id; private String title; private String description; private String healthGoal;
+        private Integer durationDays; private String difficulty; private String gradient; private String icon;
+        private Integer participantCount; private Integer rewardPoints;
+    }
+
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class ChallengeParticipation {
+        private Long challengeId; private Long userId; private java.time.LocalDateTime joinedAt;
+        private Integer currentDay; private Integer totalPoints; private Integer completedTasks; private Integer streak;
+        private String currentDailyTask; private List<String> dailyTasks; private Boolean challengeCompleted;
+    }
+
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class LeaderboardEntry { private Long userId; private Integer points; private Integer streak; private Integer completedTasks; }
+
+    // ========== Health Literacy Hub ==========
+    @Data @NoArgsConstructor @AllArgsConstructor
+    public static class LessonTopic { private String id; private String title; private String description; private String category; private String defaultLevel; }
+
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class LessonResponse {
+        private String topicId; private String title; private String level; private String category;
+        private String introduction; private List<LessonSection> sections; private List<String> keyTakeaways;
+        private List<QuizQuestion> quiz; private List<String> relatedProductTypes; private Long responseTimeMs;
+    }
+
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class LessonSection { private String heading; private String content; }
+
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class QuizQuestion { private String question; private List<String> options; private Integer correctIndex; private String explanation; }
+
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class QuizSubmitRequest { private String topicId; private List<Integer> answers; }
+
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class QuizResultResponse { private String topicId; private Integer totalQuestions; private String message; }
 }
