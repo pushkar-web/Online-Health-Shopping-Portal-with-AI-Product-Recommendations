@@ -14,7 +14,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT oi.product.id FROM OrderItem oi WHERE oi.order.user.id = :userId")
     List<Long> findProductIdsPurchasedByUser(@Param("userId") Long userId);
     
-    @Query("SELECT DISTINCT o.user.id FROM Order o WHERE o.user.id != :userId AND EXISTS " +
+    @Query("SELECT o.user.id FROM Order o WHERE o.user.id != :userId AND EXISTS " +
            "(SELECT oi FROM OrderItem oi WHERE oi.order = o AND oi.product.id IN :productIds)")
     List<Long> findUsersWithSimilarPurchases(@Param("userId") Long userId, @Param("productIds") List<Long> productIds);
+
+    @Query("SELECT COALESCE(SUM(o.finalAmount), 0.0) FROM Order o")
+    Double calculateTotalRevenue();
 }

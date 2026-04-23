@@ -1,12 +1,18 @@
 package com.healthshop.repository;
 
 import com.healthshop.model.ProductInteraction;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
-public interface ProductInteractionRepository extends MongoRepository<ProductInteraction, String> {
-    List<ProductInteraction> findByUserId(Long userId);
-    List<ProductInteraction> findByUserIdAndInteractionType(Long userId, String interactionType);
-    List<ProductInteraction> findByProductId(Long productId);
-    long countByProductIdAndInteractionType(Long productId, String interactionType);
+public interface ProductInteractionRepository extends JpaRepository<ProductInteraction, Long> {
+    
+    List<ProductInteraction> findByUserIdOrderByTimestampDesc(Long userId);
+    
+    List<ProductInteraction> findByProductIdOrderByTimestampDesc(Long productId);
+    
+    Page<ProductInteraction> findByUserId(Long userId, Pageable pageable);
+    
+    Long countByProductIdAndInteractionType(Long productId, String interactionType);
 }

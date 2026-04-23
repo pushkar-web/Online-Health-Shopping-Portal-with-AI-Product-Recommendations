@@ -35,24 +35,21 @@ public class AdminController {
         stats.put("totalProducts", productRepository.count());
         stats.put("totalOrders", orderRepository.count());
 
-        Double revenue = orderRepository.findAll().stream()
-                .mapToDouble(o -> o.getFinalAmount() != null ? o.getFinalAmount() : 0.0)
-                .sum();
+        Double revenue = orderRepository.calculateTotalRevenue();
         stats.put("totalRevenue", Math.round(revenue * 100.0) / 100.0);
 
-        // Category distribution
-        List<Map<String, Object>> categoryStats = categoryRepository.findAll().stream()
-                .map(cat -> {
+        // Category distribution using single query
+        List<Map<String, Object>> categoryStats = categoryRepository.getCategoryDistribution().stream()
+                .map(row -> {
                     Map<String, Object> m = new HashMap<>();
-                    m.put("name", cat.getName());
-                    m.put("count", productRepository.findByCategoryId(cat.getId(),
-                            PageRequest.of(0, 1)).getTotalElements());
+                    m.put("name", row[0]);
+                    m.put("count", row[1]);
                     return m;
                 })
                 .collect(Collectors.toList());
         stats.put("categoryDistribution", categoryStats);
 
-        // Recent 10 products
+        // Recent 5 products
         stats.put("recentProducts", productRepository.findNewArrivals(PageRequest.of(0, 5))
                 .stream().map(productService::toResponse).collect(Collectors.toList()));
 
