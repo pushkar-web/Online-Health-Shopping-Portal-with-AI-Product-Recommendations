@@ -32,10 +32,12 @@ export default function CheckoutPage() {
 
     if (!isAuthenticated) {
         return (
-            <div className="max-w-2xl mx-auto px-4 py-20 text-center">
-                <span className="text-5xl block mb-4">🔒</span>
-                <h2 className="text-2xl font-bold text-white mb-2">Please sign in</h2>
-                <Link href="/login" className="btn-primary px-8 py-3">Sign In</Link>
+            <div className="max-w-2xl mx-auto px-4 py-24 text-center">
+                <div className="w-16 h-16 rounded-xl bg-sage/10 flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-8 h-8 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                </div>
+                <h2 className="text-2xl font-bold text-onSurface mb-2">Please sign in</h2>
+                <Link href="/login" className="btn-sage px-8 py-3">Sign In</Link>
             </div>
         );
     }
@@ -48,7 +50,7 @@ export default function CheckoutPage() {
         setLoading(true);
         try {
             await orderAPI.create({ ...form, couponCode: coupon?.code });
-            toast.success('🎉 Order placed successfully!');
+            toast.success('Order placed successfully!');
             router.push('/orders');
         } catch (err: any) {
             toast.error(err.response?.data?.message || 'Failed to place order');
@@ -63,77 +65,76 @@ export default function CheckoutPage() {
 
     return (
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="flex items-center gap-4 mb-8">
-                <span className="text-3xl">🛍️</span>
-                <div>
-                    <h1 className="text-3xl font-bold text-white">Checkout</h1>
-                    <p className="text-gray-400">Complete your order</p>
-                </div>
+            <div className="mb-8">
+                <span className="text-xs text-sage font-medium uppercase tracking-widest mb-2 block">Payment</span>
+                <h1 className="text-3xl font-bold text-onSurface">Checkout</h1>
+                <p className="text-onSurfaceVar text-sm mt-1">Complete your order</p>
             </div>
 
             <form onSubmit={handlePlaceOrder}>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Shipping Address */}
                     <div className="lg:col-span-2 space-y-6">
-                        <div className="glass rounded-xl p-6">
-                            <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">📦 Shipping Address</h2>
+                        <div className="bg-vc-surface-high rounded-lg border border-outlineVar/15 p-6">
+                            <h2 className="text-base font-semibold text-onSurface mb-4 flex items-center gap-2">
+                                <svg className="w-4 h-4 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                                Shipping Address
+                            </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div className="sm:col-span-2">
-                                    <label className="text-sm font-medium text-gray-300 block mb-1.5">Full Name</label>
+                                    <label className="text-sm font-medium text-onSurfaceVar block mb-2">Full Name</label>
                                     <input type="text" required value={form.shippingName} onChange={e => update('shippingName', e.target.value)}
-                                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder:text-gray-500 focus:outline-none focus:border-primary-500/50 transition-all"
-                                        placeholder="John Doe" />
+                                        className="vc-input py-2.5" placeholder="John Doe" />
                                 </div>
                                 <div className="sm:col-span-2">
-                                    <label className="text-sm font-medium text-gray-300 block mb-1.5">Address</label>
+                                    <label className="text-sm font-medium text-onSurfaceVar block mb-2">Address</label>
                                     <input type="text" required value={form.shippingAddress} onChange={e => update('shippingAddress', e.target.value)}
-                                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder:text-gray-500 focus:outline-none focus:border-primary-500/50 transition-all"
-                                        placeholder="123 Health Street" />
+                                        className="vc-input py-2.5" placeholder="123 Health Street" />
                                 </div>
                                 <div>
-                                    <label className="text-sm font-medium text-gray-300 block mb-1.5">City</label>
+                                    <label className="text-sm font-medium text-onSurfaceVar block mb-2">City</label>
                                     <input type="text" required value={form.shippingCity} onChange={e => update('shippingCity', e.target.value)}
-                                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder:text-gray-500 focus:outline-none focus:border-primary-500/50 transition-all"
-                                        placeholder="New York" />
+                                        className="vc-input py-2.5" placeholder="New York" />
                                 </div>
                                 <div>
-                                    <label className="text-sm font-medium text-gray-300 block mb-1.5">State</label>
+                                    <label className="text-sm font-medium text-onSurfaceVar block mb-2">State</label>
                                     <input type="text" required value={form.shippingState} onChange={e => update('shippingState', e.target.value)}
-                                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder:text-gray-500 focus:outline-none focus:border-primary-500/50 transition-all"
-                                        placeholder="NY" />
+                                        className="vc-input py-2.5" placeholder="NY" />
                                 </div>
                                 <div>
-                                    <label className="text-sm font-medium text-gray-300 block mb-1.5">ZIP Code</label>
+                                    <label className="text-sm font-medium text-onSurfaceVar block mb-2">ZIP Code</label>
                                     <input type="text" required value={form.shippingZip} onChange={e => update('shippingZip', e.target.value)}
-                                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder:text-gray-500 focus:outline-none focus:border-primary-500/50 transition-all"
-                                        placeholder="10001" />
+                                        className="vc-input py-2.5" placeholder="10001" />
                                 </div>
                                 <div>
-                                    <label className="text-sm font-medium text-gray-300 block mb-1.5">Phone</label>
+                                    <label className="text-sm font-medium text-onSurfaceVar block mb-2">Phone</label>
                                     <input type="tel" required value={form.shippingPhone} onChange={e => update('shippingPhone', e.target.value)}
-                                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder:text-gray-500 focus:outline-none focus:border-primary-500/50 transition-all"
-                                        placeholder="+1-555-0100" />
+                                        className="vc-input py-2.5" placeholder="+1-555-0100" />
                                 </div>
                             </div>
                         </div>
 
                         {/* Payment */}
-                        <div className="glass rounded-xl p-6">
-                            <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">💳 Payment Method</h2>
+                        <div className="bg-vc-surface-high rounded-lg border border-outlineVar/15 p-6">
+                            <h2 className="text-base font-semibold text-onSurface mb-4 flex items-center gap-2">
+                                <svg className="w-4 h-4 text-stone" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+                                Payment Method
+                            </h2>
                             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                                 {[
-                                    { id: 'CARD', label: '💳 Card', desc: 'Visa / MC' },
-                                    { id: 'UPI', label: '📱 UPI', desc: 'Google Pay' },
-                                    { id: 'BANK', label: '🏦 NetBanking', desc: 'All Banks' },
-                                    { id: 'COD', label: '💵 COD', desc: 'Cash on Delivery' },
+                                    { id: 'CARD', label: 'Card', desc: 'Visa / MC', icon: '💳' },
+                                    { id: 'UPI', label: 'UPI', desc: 'Google Pay', icon: '📱' },
+                                    { id: 'BANK', label: 'NetBanking', desc: 'All Banks', icon: '🏦' },
+                                    { id: 'COD', label: 'COD', desc: 'Cash on Delivery', icon: '💵' },
                                 ].map(pm => (
                                     <button key={pm.id} type="button" onClick={() => update('paymentMethod', pm.id)}
-                                        className={`glass-light rounded-xl p-4 text-center transition-all border ${form.paymentMethod === pm.id
-                                            ? 'border-primary-500/50 bg-primary-500/10 shadow-lg shadow-primary-500/10'
-                                            : 'border-transparent hover:border-white/10'
+                                        className={`bg-vc-surface rounded-lg p-4 text-center transition-all border ${form.paymentMethod === pm.id
+                                            ? 'border-sage/40 bg-sage/5'
+                                            : 'border-outlineVar/15 hover:border-outlineVar/30'
                                             }`}>
-                                        <div className="text-xl mb-1">{pm.label.split(' ')[0]}</div>
-                                        <div className="text-xs text-gray-400">{pm.desc}</div>
+                                        <div className="text-xl mb-1">{pm.icon}</div>
+                                        <div className="text-sm text-onSurface font-medium">{pm.label}</div>
+                                        <div className="text-[10px] text-outline">{pm.desc}</div>
                                     </button>
                                 ))}
                             </div>
@@ -142,57 +143,59 @@ export default function CheckoutPage() {
 
                     {/* Order Summary Sidebar */}
                     <div className="lg:col-span-1">
-                        <div className="glass rounded-xl p-6 sticky top-24">
-                            <h2 className="text-lg font-semibold text-white mb-4">Order Summary</h2>
+                        <div className="bg-vc-surface-high rounded-lg border border-outlineVar/15 p-6 sticky top-24">
+                            <h2 className="text-base font-semibold text-onSurface mb-4">Order Summary</h2>
                             <div className="space-y-3 mb-4 max-h-64 overflow-y-auto pr-1">
                                 {items.map((item: any) => (
                                     <div key={item.id} className="flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-lg flex-shrink-0">
+                                        <div className="w-9 h-9 rounded-md bg-vc-surface flex items-center justify-center flex-shrink-0 overflow-hidden border border-outlineVar/15">
                                             {item.productImage && item.productImage.startsWith('http') ? (
-                                                <img src={item.productImage} alt="" className="w-full h-full rounded-lg object-cover" />
-                                            ) : '💊'}
+                                                <img src={item.productImage} alt="" className="w-full h-full object-cover" />
+                                            ) : (
+                                                <svg className="w-4 h-4 text-sage/20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C7 4 4 8 4 13c0 3.5 2 6.5 5 8 .8-1.5 2-2.5 3-3 1 .5 2.2 1.5 3 3 3-1.5 5-4.5 5-8 0-5-3-9-8-11z"/></svg>
+                                            )}
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <div className="text-sm text-white truncate">{item.productName}</div>
-                                            <div className="text-xs text-gray-500">x{item.quantity}</div>
+                                            <div className="text-sm text-onSurface truncate">{item.productName}</div>
+                                            <div className="text-xs text-outline">x{item.quantity}</div>
                                         </div>
-                                        <span className="text-sm text-gray-300 font-medium">${(item.totalPrice || 0).toFixed(2)}</span>
+                                        <span className="text-sm text-onSurfaceVar font-medium">${(item.totalPrice || 0).toFixed(2)}</span>
                                     </div>
                                 ))}
                             </div>
 
-                            <div className="border-t border-white/10 pt-4 space-y-2 text-sm">
-                                <div className="flex justify-between text-gray-400"><span>Subtotal</span><span>${subtotal.toFixed(2)}</span></div>
-                                <div className="flex justify-between text-gray-400">
+                            <div className="border-t border-outlineVar/15 pt-4 space-y-2 text-sm">
+                                <div className="flex justify-between text-onSurfaceVar"><span>Subtotal</span><span>${subtotal.toFixed(2)}</span></div>
+                                <div className="flex justify-between text-onSurfaceVar">
                                     <span>Shipping</span>
-                                    <span className={shipping === 0 ? 'text-green-400' : ''}>{shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}</span>
+                                    <span className={shipping === 0 ? 'text-sage' : ''}>{shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}</span>
                                 </div>
-                                <div className="flex justify-between text-gray-400"><span>Tax (8%)</span><span>${tax.toFixed(2)}</span></div>
+                                <div className="flex justify-between text-onSurfaceVar"><span>Tax (8%)</span><span>${tax.toFixed(2)}</span></div>
                                 {coupon && (
-                                    <div className="flex justify-between text-green-400">
+                                    <div className="flex justify-between text-sage">
                                         <span>Discount ({coupon.code})</span>
                                         <span>-${getDiscount().toFixed(2)}</span>
                                     </div>
                                 )}
-                                <div className="border-t border-white/10 pt-2 flex justify-between text-white font-bold text-lg">
-                                    <span>Total</span><span className="gradient-text">${total.toFixed(2)}</span>
+                                <div className="border-t border-outlineVar/15 pt-2 flex justify-between text-onSurface font-bold text-lg">
+                                    <span>Total</span><span className="text-sage">${total.toFixed(2)}</span>
                                 </div>
                             </div>
 
                             {subtotal < 50 && (
-                                <div className="mt-3 text-xs text-amber-400 bg-amber-500/10 rounded-lg p-2 text-center">
+                                <div className="mt-3 text-xs text-amber bg-amber/5 rounded-md p-2 text-center border border-amber/10">
                                     Add ${(50 - subtotal).toFixed(2)} more for free shipping!
                                 </div>
                             )}
 
                             <button type="submit" disabled={loading || items.length === 0}
-                                className="btn-accent w-full py-3.5 text-center mt-4 text-lg disabled:opacity-50">
-                                {loading ? '⏳ Processing...' : `🛒 Place Order — $${total.toFixed(2)}`}
+                                className="btn-sage w-full py-3.5 text-center mt-4 text-base disabled:opacity-50">
+                                {loading ? 'Processing...' : `Place Order — $${total.toFixed(2)}`}
                             </button>
 
-                            <div className="mt-3 flex items-center justify-center gap-2 text-[10px] text-gray-500">
-                                {['🔒 Secure', '💳 Encrypted', '📦 Free Returns'].map(b => (
-                                    <span key={b} className="bg-white/5 px-2 py-1 rounded">{b}</span>
+                            <div className="mt-3 flex items-center justify-center gap-2 text-[10px] text-outline">
+                                {['Secure', 'Encrypted', 'Free Returns'].map(b => (
+                                    <span key={b} className="bg-vc-surface px-2 py-1 rounded-md border border-outlineVar/15">{b}</span>
                                 ))}
                             </div>
                         </div>

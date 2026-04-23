@@ -1,24 +1,10 @@
 'use client';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useCartStore, useAuthStore, useWishlistStore } from '@/store';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 interface Props { product: any; }
-
-const categoryEmojis: Record<string, string> = {
-    'Vitamins & Supplements': '💊',
-    'Diabetic Care': '🩸',
-    'Fitness Nutrition': '💪',
-    'Personal Care': '🧴',
-    'Medical Devices': '🩺',
-    'Heart & Cardiovascular': '❤️',
-    'Immunity Boosters': '🛡️',
-    'Weight Management': '⚖️',
-    'Bone & Joint Care': '🦴',
-    'Skin & Hair Care': '✨',
-};
 
 export default function ProductCard({ product }: Props) {
     const { addToCart } = useCartStore();
@@ -30,7 +16,6 @@ export default function ProductCard({ product }: Props) {
     const [imgError, setImgError] = useState(false);
     const p = product;
     const discount = p.discountPrice ? Math.round((1 - p.discountPrice / p.price) * 100) : 0;
-    const emoji = categoryEmojis[p.category?.name || p.categoryName] || '💊';
     const rating = p.averageRating || 0;
     const hasImage = p.imageUrl && p.imageUrl.startsWith('http') && !imgError;
 
@@ -39,7 +24,7 @@ export default function ProductCard({ product }: Props) {
         e.stopPropagation();
         if (!isAuthenticated) { window.location.href = '/login'; return; }
         setAdding(true);
-        try { await addToCart(p.id, 1); setAdded(true); toast.success(`Added ${p.name} to cart`); setTimeout(() => setAdded(false), 1500); } catch { toast.error('Failed to add to cart'); }
+        try { await addToCart(p.id, 1); setAdded(true); toast.success(`Added to cart`); setTimeout(() => setAdded(false), 1500); } catch { toast.error('Failed to add'); }
         setAdding(false);
     };
 
@@ -49,94 +34,92 @@ export default function ProductCard({ product }: Props) {
         setWishLoading(true);
         try {
             if (isInWishlist(p.id)) { await removeFromWishlist(p.id); toast.success('Removed from wishlist'); }
-            else { await addToWishlist(p.id); toast.success('Added to wishlist ❤️'); }
+            else { await addToWishlist(p.id); toast.success('Added to wishlist'); }
         } catch { toast.error('Wishlist update failed'); }
         setWishLoading(false);
     };
 
-    const renderStars = () => {
-        return [...Array(5)].map((_, i) => (
-            <span key={i} className={i < Math.round(rating) ? 'text-yellow-400' : 'text-gray-600'} style={{ fontSize: '11px' }}>★</span>
-        ));
-    };
+    const renderStars = () => (
+        [...Array(5)].map((_, i) => (
+            <span key={i} className={`text-[11px] ${i < Math.round(rating) ? 'text-amber' : 'text-vc-surface-bright'}`}>★</span>
+        ))
+    );
 
     return (
-        <Link href={`/products/${p.id}`} className="glass-light rounded-xl overflow-hidden hover-card block group relative">
-            {/* Image area */}
-            <div className="relative h-48 bg-gradient-to-br from-slate-800/80 to-slate-900/80 flex items-center justify-center overflow-hidden">
+        <Link href={`/products/${p.id}`}
+            className="block group relative bg-vc-surface-high rounded-lg border border-outlineVar/15 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-vc-hover hover:border-outlineVar/30">
+            {/* Image */}
+            <div className="relative h-48 bg-vc-surface flex items-center justify-center overflow-hidden">
                 {hasImage ? (
-                    <img
-                        src={p.imageUrl}
-                        alt={p.name}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                        onError={() => setImgError(true)}
-                    />
+                    <img src={p.imageUrl} alt={p.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onError={() => setImgError(true)} />
                 ) : (
-                    <>
-                        <div className="absolute inset-0 overflow-hidden">
-                            <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary-500/5 rounded-full group-hover:scale-150 transition-transform duration-700" />
-                            <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-health-500/5 rounded-full group-hover:scale-150 transition-transform duration-700 delay-100" />
-                        </div>
-                        <span className="text-6xl opacity-50 group-hover:opacity-80 group-hover:scale-125 transition-all duration-500 relative z-10">{emoji}</span>
-                    </>
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-sage/5 to-stone/5">
+                        <svg className="w-16 h-16 text-sage/20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C7 4 4 8 4 13c0 3.5 2 6.5 5 8 .8-1.5 2-2.5 3-3 1 .5 2.2 1.5 3 3 3-1.5 5-4.5 5-8 0-5-3-9-8-11z"/></svg>
+                    </div>
                 )}
 
+                {/* Badges */}
                 <div className="absolute top-3 left-3 flex flex-col gap-1.5">
-                    {p.featured && (
-                        <span className="badge badge-amber text-[10px] shadow-lg shadow-amber-500/20">⭐ Featured</span>
-                    )}
-                    {discount > 0 && (
-                        <span className="badge badge-green text-[10px] shadow-lg shadow-green-500/20">-{discount}% OFF</span>
-                    )}
+                    {p.featured && <span className="vc-badge vc-badge-amber text-[10px]">Featured</span>}
+                    {discount > 0 && <span className="vc-badge vc-badge-sage text-[10px]">−{discount}%</span>}
                 </div>
 
-                {/* Wishlist heart */}
+                {/* Wishlist */}
                 <button onClick={handleWishlist} disabled={wishLoading}
-                    className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-all z-10 backdrop-blur-sm ${isInWishlist(p.id) ? 'bg-red-500/20 text-red-400 scale-110' : 'bg-black/30 text-gray-400 opacity-0 group-hover:opacity-100 hover:text-red-400 hover:bg-red-500/20'
-                        }`}>
-                    {isInWishlist(p.id) ? '❤️' : '🤍'}
+                    className={`absolute top-3 right-3 w-8 h-8 rounded-md flex items-center justify-center transition-all z-10 ${isInWishlist(p.id)
+                        ? 'bg-vcError/15 text-vcError'
+                        : 'bg-vc-bg/40 text-onSurfaceVar opacity-0 group-hover:opacity-100 hover:text-vcError hover:bg-vcError/15'
+                    }`}>
+                    <svg className="w-4 h-4" fill={isInWishlist(p.id) ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor" strokeWidth={isInWishlist(p.id) ? 0 : 1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
                 </button>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3">
-                    <span className="text-xs text-white/80 font-medium bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full">View Details →</span>
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-vc-bg/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3">
+                    <span className="text-xs text-onSurface/80 font-medium bg-vc-surface-high/80 backdrop-blur-sm px-3 py-1 rounded-md">View Details →</span>
                 </div>
             </div>
 
             {/* Content */}
             <div className="p-4">
                 <div className="flex items-center justify-between mb-1.5">
-                    {p.brand && <span className="text-[10px] text-gray-500 uppercase tracking-wider font-medium">{p.brand}</span>}
+                    {p.brand && <span className="text-[10px] text-outline uppercase tracking-wider font-medium">{p.brand}</span>}
                     {rating > 0 && (
                         <div className="flex items-center gap-1">
                             <div className="flex">{renderStars()}</div>
-                            <span className="text-[10px] text-gray-500">({p.reviewCount})</span>
+                            <span className="text-[10px] text-outline">({p.reviewCount})</span>
                         </div>
                     )}
                 </div>
 
-                <h3 className="text-sm font-semibold text-white mb-2 line-clamp-2 group-hover:text-primary-400 transition-colors duration-200 leading-snug">{p.name}</h3>
+                <h3 className="text-sm font-semibold text-onSurface mb-2 line-clamp-2 group-hover:text-sage transition-colors duration-200 leading-snug">{p.name}</h3>
 
                 {p.healthGoals && (
                     <div className="flex flex-wrap gap-1 mb-3">
                         {(Array.isArray(p.healthGoals) ? p.healthGoals : p.healthGoals.split(',')).slice(0, 2).map((g: string) => (
-                            <span key={g} className="badge badge-blue text-[9px] py-0.5 px-2">{g.trim()}</span>
+                            <span key={g} className="vc-badge vc-badge-sage text-[9px] py-0.5 px-2">{g.trim()}</span>
                         ))}
                     </div>
                 )}
 
-                <div className="flex items-center justify-between pt-2 border-t border-white/5">
+                <div className="flex items-center justify-between pt-3 border-t border-outlineVar/15">
                     <div className="flex items-baseline gap-2">
-                        <span className="text-lg font-bold text-white">${(p.discountPrice || p.price).toFixed(2)}</span>
+                        <span className="text-lg font-bold text-onSurface">${(p.discountPrice || p.price).toFixed(2)}</span>
                         {p.discountPrice && (
-                            <span className="text-[11px] text-gray-500 line-through">${p.price.toFixed(2)}</span>
+                            <span className="text-[11px] text-outline line-through">${p.price.toFixed(2)}</span>
                         )}
                     </div>
                     <button onClick={handleAdd} disabled={adding}
-                        className={`w-9 h-9 rounded-lg flex items-center justify-center transition-all text-sm font-bold ${added
-                            ? 'bg-green-500/20 text-green-400 scale-110'
-                            : 'bg-primary-600/20 text-primary-400 hover:bg-primary-600/40 hover:scale-105 active:scale-95'
-                            }`}>
-                        {adding ? '...' : added ? '✓' : '+'}
+                        className={`w-8 h-8 rounded-md flex items-center justify-center transition-all text-sm font-bold ${added
+                            ? 'bg-sage/15 text-sage'
+                            : 'bg-sage/10 text-sage hover:bg-sage/20 active:scale-95'
+                        }`}>
+                        {adding ? (
+                            <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+                        ) : added ? '✓' : '+'}
                     </button>
                 </div>
             </div>

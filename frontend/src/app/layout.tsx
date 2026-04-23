@@ -6,8 +6,9 @@ import ToastProvider from '@/components/ToastProvider';
 import VoiceAssistant from '@/components/VoiceAssistant';
 
 export const metadata: Metadata = {
-    title: 'HealthShop AI - Smart Health Shopping Portal',
-    description: 'AI-powered online health shopping portal with personalized product recommendations based on your health profile and goals.',
+    title: 'VitaCart AI — Intelligent Health Shopping',
+    description: 'AI-powered health product recommendations tailored to your goals, dietary needs, and lifestyle. Premium wellness commerce for modern health-conscious shoppers.',
+    keywords: 'health supplements, AI recommendations, wellness, vitamins, nutrition, personalized health',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

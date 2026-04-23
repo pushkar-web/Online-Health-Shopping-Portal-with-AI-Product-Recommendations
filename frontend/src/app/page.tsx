@@ -26,73 +26,138 @@ export default function HomePage() {
     }, []);
 
     const healthGoals = [
-        { icon: '❤️', name: 'Heart Health', color: 'from-red-500/20 to-pink-500/20', border: 'border-red-500/20' },
-        { icon: '💪', name: 'Fitness', color: 'from-blue-500/20 to-cyan-500/20', border: 'border-blue-500/20' },
-        { icon: '🛡️', name: 'Immunity', color: 'from-green-500/20 to-emerald-500/20', border: 'border-green-500/20' },
-        { icon: '🧠', name: 'Brain Health', color: 'from-purple-500/20 to-violet-500/20', border: 'border-purple-500/20' },
-        { icon: '🦴', name: 'Bone Health', color: 'from-amber-500/20 to-yellow-500/20', border: 'border-amber-500/20' },
-        { icon: '⚖️', name: 'Weight Loss', color: 'from-teal-500/20 to-cyan-500/20', border: 'border-teal-500/20' },
-        { icon: '😴', name: 'Sleep', color: 'from-indigo-500/20 to-blue-500/20', border: 'border-indigo-500/20' },
-        { icon: '✨', name: 'Skin Health', color: 'from-pink-500/20 to-rose-500/20', border: 'border-pink-500/20' },
+        { name: 'Heart Health', icon: '❤️', color: 'from-rose-900/20 to-rose-800/10' },
+        { name: 'Fitness', icon: '💪', color: 'from-sage/10 to-sage/5' },
+        { name: 'Immunity', icon: '🛡️', color: 'from-emerald-900/20 to-emerald-800/10' },
+        { name: 'Brain Health', icon: '🧠', color: 'from-stone/10 to-stone/5' },
+        { name: 'Bone Health', icon: '🦴', color: 'from-amber/10 to-amber/5' },
+        { name: 'Weight Loss', icon: '⚖️', color: 'from-teal-900/20 to-teal-800/10' },
+        { name: 'Sleep', icon: '😴', color: 'from-indigo-900/20 to-indigo-800/10' },
+        { name: 'Skin Health', icon: '✨', color: 'from-pink-900/20 to-pink-800/10' },
     ];
 
     return (
         <div>
-            {/* Hero Section */}
-            <section className="relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-900/40 via-transparent to-health-900/30" />
-                <div className="absolute top-20 left-10 w-72 h-72 bg-primary-500/10 rounded-full blur-3xl animate-pulse-slow" />
-                <div className="absolute bottom-10 right-10 w-96 h-96 bg-health-500/10 rounded-full blur-3xl animate-pulse-slow" />
+            {/* ========== HERO SECTION ========== */}
+            <section className="relative overflow-hidden min-h-[90vh] flex items-center">
+                {/* Atmospheric orbs */}
+                <div className="absolute inset-0">
+                    <div className="absolute top-1/4 left-[10%] w-[500px] h-[500px] bg-sage/4 rounded-full blur-[120px] animate-hero-drift" />
+                    <div className="absolute bottom-1/4 right-[10%] w-[400px] h-[400px] bg-stone/4 rounded-full blur-[100px] animate-hero-drift" style={{ animationDelay: '-10s' }} />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber/3 rounded-full blur-[140px]" />
+                </div>
 
-                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-36">
-                    <div className="text-center max-w-4xl mx-auto">
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-light mb-6 animate-fade-in">
-                            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                            <span className="text-sm text-gray-300">AI-Powered Health Recommendations</span>
-                        </div>
-                        <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black mb-6 leading-tight animate-slide-up">
-                            Your Health,{' '}
-                            <span className="gradient-text">Personalized</span>
-                            <br />by AI
-                        </h1>
-                        <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 animate-fade-in">
-                            Smart health product recommendations powered by AI. Tell us your health goals,
-                            and we&apos;ll find the perfect supplements, devices, and care products for you.
-                        </p>
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up">
-                            <Link href="/products" className="btn-primary px-8 py-3 text-lg rounded-xl flex items-center gap-2">
-                                🛍️ Shop Now
-                            </Link>
-                            <Link href="/symptom-search" className="btn-accent px-8 py-3 text-lg rounded-xl flex items-center gap-2">
-                                🤖 AI Health Chat
-                            </Link>
+                {/* Subtle grid pattern */}
+                <div className="absolute inset-0 opacity-[0.015]"
+                    style={{ backgroundImage: 'radial-gradient(circle, #aad0ae 1px, transparent 1px)', backgroundSize: '48px 48px' }} />
+
+                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        {/* Left — Copy */}
+                        <div className="max-w-xl">
+                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-sage/8 border border-sage/15 mb-8 animate-fade-in">
+                                <span className="w-1.5 h-1.5 bg-sage rounded-full animate-pulse" />
+                                <span className="text-xs text-sage font-medium tracking-wide">AI-Powered Wellness Commerce</span>
+                            </div>
+
+                            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-onSurface leading-[1.1] mb-6 animate-slide-up tracking-tight">
+                                Your health,{' '}
+                                <span className="gradient-text">intelligently</span>
+                                <br />curated
+                            </h1>
+
+                            <p className="text-lg text-onSurfaceVar leading-relaxed mb-10 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                                Discover supplements and wellness products matched to your unique health profile. 
+                                AI recommendations that adapt and improve with every purchase.
+                            </p>
+
+                            <div className="flex flex-col sm:flex-row items-start gap-4 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+                                <Link href="/products" className="btn-sage px-8 py-3 text-base">
+                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                                    Shop Now
+                                </Link>
+                                <Link href="/symptom-search" className="btn-outline-sage px-8 py-3 text-base">
+                                    Talk to AI
+                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                </Link>
+                            </div>
+
+                            {/* Stats */}
+                            <div className="grid grid-cols-3 gap-6 mt-14 animate-fade-in" style={{ animationDelay: '0.5s' }}>
+                                {[
+                                    { num: '500+', label: 'Products' },
+                                    { num: '10K+', label: 'Reviews' },
+                                    { num: '99%', label: 'Satisfaction' },
+                                ].map((s) => (
+                                    <div key={s.label}>
+                                        <div className="text-2xl font-bold text-onSurface stat-number">{s.num}</div>
+                                        <div className="text-xs text-outline mt-1 uppercase tracking-wider">{s.label}</div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
 
-                        {/* Stats */}
-                        <div className="grid grid-cols-3 gap-4 mt-16 max-w-lg mx-auto">
-                            {[
-                                { num: '500+', label: 'Products' },
-                                { num: '10K+', label: 'Reviews' },
-                                { num: '99%', label: 'Satisfaction' },
-                            ].map((s) => (
-                                <div key={s.label} className="glass-light rounded-xl p-4">
-                                    <div className="text-2xl font-bold gradient-text stat-number">{s.num}</div>
-                                    <div className="text-xs text-gray-400">{s.label}</div>
+                        {/* Right — Product showcase cards */}
+                        <div className="hidden lg:block relative">
+                            <div className="relative w-full h-[520px]">
+                                {/* Back card */}
+                                <div className="absolute top-8 right-0 w-64 bg-vc-surface-high rounded-lg border border-outlineVar/15 p-5 transform rotate-3 shadow-vc animate-float-slow">
+                                    <div className="w-full h-32 bg-gradient-to-br from-stone/10 to-amber/5 rounded-md mb-4 flex items-center justify-center">
+                                        <span className="text-4xl opacity-50">🌿</span>
+                                    </div>
+                                    <div className="h-3 bg-vc-surface-highest rounded w-3/4 mb-2" />
+                                    <div className="h-2 bg-vc-surface-highest rounded w-1/2" />
+                                    <div className="flex items-center justify-between mt-4">
+                                        <span className="text-lg font-bold text-onSurface">$34.99</span>
+                                        <span className="vc-badge vc-badge-sage text-[10px]">98% Match</span>
+                                    </div>
                                 </div>
-                            ))}
+
+                                {/* Middle card */}
+                                <div className="absolute top-20 left-8 w-72 bg-vc-surface-high rounded-lg border border-sage/15 p-5 transform -rotate-2 shadow-vc-lg z-10 animate-float">
+                                    <div className="w-full h-40 bg-gradient-to-br from-sage/8 to-emerald-900/10 rounded-md mb-4 flex items-center justify-center">
+                                        <span className="text-5xl">🍃</span>
+                                    </div>
+                                    <span className="vc-badge vc-badge-amber mb-2 text-[10px]">AI Recommended</span>
+                                    <h4 className="text-sm font-semibold text-onSurface mb-1">Ashwagandha Complex</h4>
+                                    <p className="text-xs text-outline mb-3">KSM-66 · 600mg · Stress & Calm</p>
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-baseline gap-2">
+                                            <span className="text-xl font-bold text-onSurface">$29.99</span>
+                                            <span className="text-xs text-outline line-through">$39.99</span>
+                                        </div>
+                                        <div className="flex text-amber text-xs">★★★★★</div>
+                                    </div>
+                                </div>
+
+                                {/* Front card - small */}
+                                <div className="absolute bottom-12 right-12 w-48 bg-vc-surface-highest rounded-lg border border-outlineVar/15 p-4 transform rotate-1 shadow-vc z-20 animate-float-delayed">
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <div className="w-10 h-10 rounded-md bg-sage/10 flex items-center justify-center">
+                                            <svg className="w-5 h-5 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                                        </div>
+                                        <div>
+                                            <div className="text-xs font-medium text-onSurface">Health Score</div>
+                                            <div className="text-lg font-bold text-sage">87/100</div>
+                                        </div>
+                                    </div>
+                                    <div className="w-full bg-vc-surface rounded-full h-1.5">
+                                        <div className="bg-sage h-1.5 rounded-full" style={{ width: '87%' }} />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Trust Badges */}
-                    <div className="flex flex-wrap items-center justify-center gap-6 mt-12">
+                    {/* Trust badges */}
+                    <div className="flex flex-wrap items-center justify-center gap-8 mt-16 animate-fade-in" style={{ animationDelay: '0.6s' }}>
                         {[
-                            { icon: '🚚', text: 'Free Shipping 50+' },
-                            { icon: '🌿', text: '100% Organic Options' },
+                            { icon: '🚚', text: 'Free Shipping $50+' },
+                            { icon: '🌿', text: 'Organic Options' },
                             { icon: '🔬', text: 'Lab Verified' },
                             { icon: '🔄', text: '30-Day Returns' },
-                            { icon: '🔒', text: 'Secure Checkout' },
                         ].map((b) => (
-                            <div key={b.text} className="flex items-center gap-2 text-gray-400 text-sm">
+                            <div key={b.text} className="flex items-center gap-2 text-outline text-sm">
                                 <span>{b.icon}</span>
                                 <span>{b.text}</span>
                             </div>
@@ -101,38 +166,46 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* Health Goals */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <h2 className="text-3xl font-bold text-white mb-2">Shop by Health Goal</h2>
-                <p className="text-gray-400 mb-8">Find products tailored to your specific health objectives</p>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {/* ========== HEALTH GOALS ========== */}
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <div className="text-center mb-12">
+                    <span className="text-xs text-sage font-medium uppercase tracking-widest mb-3 block">Personalized For You</span>
+                    <h2 className="text-3xl font-bold text-onSurface mb-3">Shop by Health Goal</h2>
+                    <p className="text-onSurfaceVar max-w-md mx-auto">Products curated for your specific health objectives</p>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     {healthGoals.map((g) => (
                         <Link key={g.name} href={`/products?healthGoal=${encodeURIComponent(g.name)}`}
-                            className={`glass-light rounded-xl p-5 hover-card text-center border ${g.border}`}>
-                            <span className="text-3xl block mb-2">{g.icon}</span>
-                            <span className="text-sm font-semibold text-white">{g.name}</span>
+                            className="bg-vc-surface-high rounded-lg border border-outlineVar/15 p-5 text-center transition-all hover:-translate-y-1 hover:border-sage/20 hover:shadow-vc group">
+                            <span className="text-3xl block mb-3 group-hover:scale-110 transition-transform">{g.icon}</span>
+                            <span className="text-sm font-semibold text-onSurface">{g.name}</span>
                         </Link>
                     ))}
                 </div>
             </section>
 
-            {/* How It Works */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="section-divider max-w-7xl mx-auto" />
+
+            {/* ========== HOW IT WORKS ========== */}
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl font-bold text-white mb-2">How It Works</h2>
-                    <p className="text-gray-400">Get personalized health products in 3 simple steps</p>
+                    <span className="text-xs text-stone font-medium uppercase tracking-widest mb-3 block">Simple Process</span>
+                    <h2 className="text-3xl font-bold text-onSurface mb-3">How It Works</h2>
+                    <p className="text-onSurfaceVar">Personalized health products in 3 steps</p>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {[
-                        { step: '01', icon: '📋', title: 'Set Your Health Profile', desc: 'Tell us your health goals, dietary preferences, and any conditions - our AI learns what you need.' },
-                        { step: '02', icon: '🤖', title: 'Get AI Recommendations', desc: 'Our engine analyzes 180+ products to find the perfect supplements and care products for you.' },
-                        { step: '03', icon: '📦', title: 'Order & Track', desc: 'Add to cart, checkout securely, and track your orders. Recommendations get smarter over time.' },
+                        { step: '01', title: 'Set Your Health Profile', desc: 'Tell us your health goals, dietary preferences, and any conditions — our AI learns what you need.' },
+                        { step: '02', title: 'Get AI Recommendations', desc: 'Our engine analyzes 500+ products to find the perfect supplements and care products for you.' },
+                        { step: '03', title: 'Order & Track', desc: 'Add to cart, checkout securely, and track your orders. Recommendations get smarter over time.' },
                     ].map((item) => (
-                        <div key={item.step} className="glass-light rounded-2xl p-6 text-center hover-card relative overflow-hidden group">
-                            <div className="absolute top-4 right-4 text-4xl font-black text-white/5 group-hover:text-primary-500/10 transition-colors">{item.step}</div>
-                            <span className="text-4xl block mb-4">{item.icon}</span>
-                            <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-                            <p className="text-sm text-gray-400 leading-relaxed">{item.desc}</p>
+                        <div key={item.step} className="bg-vc-surface-high rounded-lg border border-outlineVar/15 p-8 relative overflow-hidden group hover:-translate-y-1 transition-all hover:border-outlineVar/30">
+                            <span className="absolute top-6 right-6 text-4xl font-black text-vc-surface-bright/30 group-hover:text-sage/10 transition-colors">{item.step}</span>
+                            <div className="w-10 h-10 rounded-md bg-sage/10 flex items-center justify-center mb-5">
+                                <span className="text-sage font-bold text-sm">{item.step}</span>
+                            </div>
+                            <h3 className="text-base font-bold text-onSurface mb-2">{item.title}</h3>
+                            <p className="text-sm text-onSurfaceVar leading-relaxed">{item.desc}</p>
                         </div>
                     ))}
                 </div>
@@ -140,32 +213,28 @@ export default function HomePage() {
 
             <div className="section-divider max-w-7xl mx-auto" />
 
-            {/* AI Features Showcase */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            {/* ========== AI FEATURES ========== */}
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
                 <div className="text-center mb-12">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-light mb-4">
-                        <span className="text-sm">🧠</span>
-                        <span className="text-sm text-gray-300">Powered by AI</span>
-                    </div>
-                    <h2 className="text-3xl font-bold text-white mb-2">AI-Powered Health Tools</h2>
-                    <p className="text-gray-400 max-w-xl mx-auto">Advanced AI features to help you make smarter health decisions</p>
+                    <span className="text-xs text-amber font-medium uppercase tracking-widest mb-3 block">Intelligent Features</span>
+                    <h2 className="text-3xl font-bold text-onSurface mb-3">AI-Powered Health Tools</h2>
+                    <p className="text-onSurfaceVar max-w-xl mx-auto">Advanced tools to help you make smarter health decisions</p>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {[
-                        { href: '/ai/dashboard', icon: '📊', title: 'Health Dashboard', desc: 'Get your AI health score, nutrition gap analysis, spending insights, and personalized improvement tips.', gradient: 'from-primary-600/10 to-blue-600/10', border: 'border-primary-500/10' },
-                        { href: '/ai/interactions', icon: '⚠️', title: 'Interaction Checker', desc: 'Check for supplement-drug interactions before you buy. Identify risky combinations and beneficial pairings.', gradient: 'from-amber-600/10 to-red-600/10', border: 'border-amber-500/10' },
-                        { href: '/ai/compare', icon: '⚖️', title: 'Smart Compare', desc: 'AI-powered product comparison across 6 dimensions including value, quality, and health goal match.', gradient: 'from-emerald-600/10 to-teal-600/10', border: 'border-emerald-500/10' },
-                        { href: '/symptom-search', icon: '🩺', title: 'Health Chat', desc: 'Describe your symptoms in plain language. Get severity assessment, lifestyle tips, and product recommendations.', gradient: 'from-violet-600/10 to-purple-600/10', border: 'border-violet-500/10' },
+                        { href: '/ai/dashboard', icon: '📊', title: 'Health Dashboard', desc: 'AI health score, nutrition gaps, spending insights, and tips.', accent: 'sage' },
+                        { href: '/ai/interactions', icon: '⚠️', title: 'Interaction Check', desc: 'Check supplement-drug interactions. Identify risky combinations.', accent: 'amber' },
+                        { href: '/ai/compare', icon: '⚖️', title: 'Smart Compare', desc: 'AI comparison across quality, value, and health goal match.', accent: 'stone' },
+                        { href: '/symptom-search', icon: '🩺', title: 'Health Chat', desc: 'Describe symptoms. Get assessment, tips, and recommendations.', accent: 'sage' },
                     ].map((f) => (
                         <Link key={f.href} href={f.href}
-                            className={`glass rounded-xl p-6 hover-card relative overflow-hidden border ${f.border} group`}>
-                            <div className={`absolute inset-0 bg-gradient-to-br ${f.gradient} opacity-0 group-hover:opacity-100 transition-opacity`} />
-                            <div className="relative">
-                                <span className="text-3xl block mb-3">{f.icon}</span>
-                                <h3 className="text-base font-bold text-white mb-2">{f.title}</h3>
-                                <p className="text-xs text-gray-400 leading-relaxed">{f.desc}</p>
-                                <span className="inline-block mt-3 text-xs text-primary-400 font-medium group-hover:translate-x-1 transition-transform">Try it →</span>
-                            </div>
+                            className="bg-vc-surface-high rounded-lg border border-outlineVar/15 p-6 group hover:-translate-y-1 transition-all hover:border-outlineVar/30 hover:shadow-vc">
+                            <span className="text-3xl block mb-4">{f.icon}</span>
+                            <h3 className="text-sm font-bold text-onSurface mb-2">{f.title}</h3>
+                            <p className="text-xs text-onSurfaceVar leading-relaxed mb-4">{f.desc}</p>
+                            <span className={`text-xs font-medium ${f.accent === 'sage' ? 'text-sage' : f.accent === 'amber' ? 'text-amber' : 'text-stone'} group-hover:translate-x-1 inline-block transition-transform`}>
+                                Explore →
+                            </span>
                         </Link>
                     ))}
                 </div>
@@ -173,42 +242,40 @@ export default function HomePage() {
 
             <div className="section-divider max-w-7xl mx-auto" />
 
-            {/* Categories */}
+            {/* ========== CATEGORIES ========== */}
             {categories.length > 0 && (
-                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                     <div className="flex items-center justify-between mb-8">
                         <div>
-                            <h2 className="text-3xl font-bold text-white mb-2">Categories</h2>
-                            <p className="text-gray-400">Browse our curated health product categories</p>
+                            <h2 className="text-2xl font-bold text-onSurface mb-1">Categories</h2>
+                            <p className="text-onSurfaceVar text-sm">Browse curated health product categories</p>
                         </div>
-                        <Link href="/products" className="text-primary-400 hover:text-primary-300 text-sm font-medium">View All ({categories.length}) →</Link>
+                        <Link href="/products" className="text-sage hover:text-sage-dim text-sm font-medium">View All →</Link>
                     </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
                         {categories.slice(0, 15).map((c: any) => (
                             <Link key={c.id} href={`/products?categoryId=${c.id}`}
-                                className="glass-light rounded-xl p-4 hover-card text-center">
+                                className="bg-vc-surface-high rounded-lg border border-outlineVar/15 p-4 text-center hover:-translate-y-1 transition-all hover:border-outlineVar/30 group">
                                 <span className="text-2xl block mb-2">{c.iconName || '📦'}</span>
-                                <span className="text-sm font-medium text-white">{c.name}</span>
+                                <span className="text-sm font-medium text-onSurface group-hover:text-sage transition-colors">{c.name}</span>
                             </Link>
                         ))}
                     </div>
                 </section>
             )}
 
-            {/* Featured Products */}
+            {/* ========== FEATURED PRODUCTS ========== */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div className="flex items-center justify-between mb-8">
                     <div>
-                        <h2 className="text-3xl font-bold text-white">Featured Products</h2>
-                        <p className="text-gray-400">Hand-picked health essentials</p>
+                        <span className="text-xs text-amber font-medium uppercase tracking-widest mb-1 block">Hand-Picked</span>
+                        <h2 className="text-2xl font-bold text-onSurface">Featured Products</h2>
                     </div>
-                    <Link href="/products?featured=true" className="text-primary-400 hover:text-primary-300 text-sm font-medium">View All →</Link>
+                    <Link href="/products?featured=true" className="text-sage hover:text-sage-dim text-sm font-medium">View All →</Link>
                 </div>
                 {loading ? (
                     <div className="product-grid">
-                        {[...Array(4)].map((_, i) => (
-                            <div key={i} className="rounded-xl h-80 shimmer" />
-                        ))}
+                        {[...Array(4)].map((_, i) => <div key={i} className="rounded-lg h-80 shimmer" />)}
                     </div>
                 ) : (
                     <div className="product-grid">
@@ -217,13 +284,13 @@ export default function HomePage() {
                 )}
             </section>
 
-            {/* Trending */}
+            {/* ========== TRENDING ========== */}
             {trending.length > 0 && (
                 <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                     <div className="flex items-center justify-between mb-8">
                         <div>
-                            <h2 className="text-3xl font-bold text-white">🔥 Trending Now</h2>
-                            <p className="text-gray-400">Most popular products this week</p>
+                            <span className="text-xs text-sage font-medium uppercase tracking-widest mb-1 block">Popular</span>
+                            <h2 className="text-2xl font-bold text-onSurface">Trending Now</h2>
                         </div>
                     </div>
                     <div className="product-grid">
@@ -232,32 +299,32 @@ export default function HomePage() {
                 </section>
             )}
 
-            {/* Testimonials */}
+            {/* ========== TESTIMONIALS ========== */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div className="text-center mb-10">
-                    <h2 className="text-3xl font-bold text-white mb-2">What Our Customers Say</h2>
-                    <p className="text-gray-400">Trusted by thousands for smarter health shopping</p>
+                    <span className="text-xs text-stone font-medium uppercase tracking-widest mb-3 block">Trusted</span>
+                    <h2 className="text-2xl font-bold text-onSurface mb-3">What Our Customers Say</h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {[
-                        { name: 'Sarah M.', role: 'Fitness Enthusiast', text: 'The AI recommendations are spot-on! It suggested the perfect supplement stack for my training goals. Saved me hours of research.', rating: 5 },
-                        { name: 'James K.', role: 'Diabetic Care', text: 'Finally a store that understands diabetic needs. The health profile feature ensures I only see products safe for my condition.', rating: 5 },
-                        { name: 'Priya R.', role: 'Wellness Coach', text: 'I recommend HealthShop AI to all my clients. The symptom-based search is incredibly helpful for finding the right supplements.', rating: 4 },
+                        { name: 'Sarah M.', role: 'Fitness Enthusiast', text: 'The AI recommendations are spot-on! Suggested the perfect supplement stack for my training goals.', rating: 5 },
+                        { name: 'James K.', role: 'Diabetic Care', text: 'Finally a store that understands diabetic needs. The health profile ensures I only see safe products.', rating: 5 },
+                        { name: 'Priya R.', role: 'Wellness Coach', text: 'I recommend VitaCart AI to all my clients. The symptom-based search is incredibly helpful.', rating: 5 },
                     ].map((t) => (
-                        <div key={t.name} className="glass-light rounded-xl p-6 hover-card">
-                            <div className="flex items-center gap-1 mb-3">
+                        <div key={t.name} className="bg-vc-surface-high rounded-lg border border-outlineVar/15 p-6 hover:-translate-y-1 transition-all">
+                            <div className="flex items-center gap-0.5 mb-4">
                                 {[...Array(5)].map((_, i) => (
-                                    <span key={i} className={`text-sm ${i < t.rating ? 'text-yellow-400' : 'text-gray-600'}`}>★</span>
+                                    <span key={i} className={`text-sm ${i < t.rating ? 'text-amber' : 'text-vc-surface-bright'}`}>★</span>
                                 ))}
                             </div>
-                            <p className="text-sm text-gray-300 mb-4 leading-relaxed italic">&ldquo;{t.text}&rdquo;</p>
+                            <p className="text-sm text-onSurfaceVar mb-5 leading-relaxed">&ldquo;{t.text}&rdquo;</p>
                             <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white text-sm font-bold">
+                                <div className="w-9 h-9 rounded-md bg-sage/10 flex items-center justify-center text-sage text-sm font-bold">
                                     {t.name.charAt(0)}
                                 </div>
                                 <div>
-                                    <p className="text-sm font-semibold text-white">{t.name}</p>
-                                    <p className="text-xs text-gray-500">{t.role}</p>
+                                    <p className="text-sm font-semibold text-onSurface">{t.name}</p>
+                                    <p className="text-xs text-outline">{t.role}</p>
                                 </div>
                             </div>
                         </div>
@@ -265,22 +332,26 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* AI CTA */}
+            {/* ========== AI CTA ========== */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <div className="glass rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary-600/10 via-health-600/10 to-accent-600/10" />
-                    <div className="relative">
-                        <span className="text-5xl mb-4 block">🤖</span>
-                        <h2 className="text-3xl font-bold text-white mb-4">Not sure what you need?</h2>
-                        <p className="text-gray-400 max-w-xl mx-auto mb-6">
-                            Describe your symptoms or health concerns, and our AI will recommend the right products for you.
+                <div className="bg-vc-surface-high rounded-xl border border-sage/10 p-8 md:p-14 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-sage/5 via-transparent to-amber/3" />
+                    <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-sage/3 rounded-full blur-[100px]" />
+                    <div className="relative text-center max-w-xl mx-auto">
+                        <div className="w-14 h-14 rounded-lg bg-sage/10 flex items-center justify-center mx-auto mb-6">
+                            <svg className="w-7 h-7 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+                        </div>
+                        <h2 className="text-2xl font-bold text-onSurface mb-4">Not sure what you need?</h2>
+                        <p className="text-onSurfaceVar mb-8">
+                            Describe your health concerns and our AI will recommend the right products for you.
                         </p>
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                            <Link href="/symptom-search" className="btn-accent px-8 py-3 text-lg rounded-xl inline-flex items-center gap-2">
-                                🔬 Try AI Health Chat
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                            <Link href="/symptom-search" className="btn-sage px-8 py-3 text-base">
+                                Try AI Health Chat
+                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                             </Link>
-                            <Link href="/ai/dashboard" className="btn-primary px-8 py-3 text-lg rounded-xl inline-flex items-center gap-2">
-                                📊 AI Dashboard
+                            <Link href="/ai/dashboard" className="btn-ghost px-8 py-3 text-base">
+                                AI Dashboard
                             </Link>
                         </div>
                     </div>

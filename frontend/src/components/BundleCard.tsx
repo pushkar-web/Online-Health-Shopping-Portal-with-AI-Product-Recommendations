@@ -1,6 +1,5 @@
 'use client';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useCartStore } from '@/store';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -18,7 +17,7 @@ export default function BundleCard({ bundle }: Props) {
             for (const p of bundle.products) {
                 await addToCart(p.id, 1);
             }
-            toast.success(`added ${bundle.title} to cart!`);
+            toast.success(`Added ${bundle.title} to cart`);
         } catch {
             toast.error('Failed to add bundle');
         } finally {
@@ -27,36 +26,37 @@ export default function BundleCard({ bundle }: Props) {
     };
 
     return (
-        <div className="glass rounded-xl p-6 relative overflow-hidden group border border-primary-500/20">
-            {/* Background Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary-900/20 to-transparent opacity-50" />
+        <div className="bg-vc-surface-high rounded-lg border border-sage/15 p-6 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-br from-sage/5 to-transparent opacity-50" />
 
             <div className="relative z-10">
                 <div className="flex justify-between items-start mb-4">
                     <div>
-                        <span className="badge badge-purple mb-2 inline-block">✨ AI Power Pair</span>
-                        <h3 className="text-xl font-bold text-white leading-tight mb-1">{bundle.title}</h3>
-                        <p className="text-sm text-gray-400 line-clamp-2">{bundle.description}</p>
+                        <span className="vc-badge vc-badge-amber mb-2 inline-block">AI Power Pair</span>
+                        <h3 className="text-lg font-bold text-onSurface leading-tight mb-1">{bundle.title}</h3>
+                        <p className="text-sm text-onSurfaceVar line-clamp-2">{bundle.description}</p>
                     </div>
                     <div className="text-right">
-                        <div className="text-2xl font-bold text-primary-400">${bundle.discountedPrice.toFixed(2)}</div>
-                        <div className="text-sm text-gray-500 line-through">${bundle.totalPrice.toFixed(2)}</div>
-                        <div className="text-xs text-green-400 font-bold">Save {bundle.discountPercentage}%</div>
+                        <div className="text-xl font-bold text-sage">${bundle.discountedPrice.toFixed(2)}</div>
+                        <div className="text-sm text-outline line-through">${bundle.totalPrice.toFixed(2)}</div>
+                        <div className="text-xs text-sage font-bold">Save {bundle.discountPercentage}%</div>
                     </div>
                 </div>
 
                 <div className="flex items-center gap-4 mb-6">
                     {bundle.products.map((p: any, i: number) => (
                         <div key={p.id} className="flex items-center">
-                            <div className="relative w-16 h-16 rounded-lg bg-gray-800 overflow-hidden border border-white/10 group-hover:scale-105 transition-transform">
+                            <div className="relative w-14 h-14 rounded-md bg-vc-surface overflow-hidden border border-outlineVar/15 group-hover:scale-105 transition-transform">
                                 {p.imageUrl ? (
                                     <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover" />
                                 ) : (
-                                    <div className="w-full h-full flex items-center justify-center text-2xl">💊</div>
+                                    <div className="w-full h-full flex items-center justify-center">
+                                        <svg className="w-6 h-6 text-sage/20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C7 4 4 8 4 13c0 3.5 2 6.5 5 8 .8-1.5 2-2.5 3-3 1 .5 2.2 1.5 3 3 3-1.5 5-4.5 5-8 0-5-3-9-8-11z"/></svg>
+                                    </div>
                                 )}
                             </div>
                             {i < bundle.products.length - 1 && (
-                                <Plus className="w-4 h-4 text-gray-500 mx-2" />
+                                <Plus className="w-3.5 h-3.5 text-outline mx-2" />
                             )}
                         </div>
                     ))}
@@ -65,7 +65,7 @@ export default function BundleCard({ bundle }: Props) {
                 <button
                     onClick={handleAdd}
                     disabled={adding}
-                    className="w-full btn-primary py-3 rounded-xl flex items-center justify-center gap-2 group/btn"
+                    className="w-full btn-sage py-3 flex items-center justify-center gap-2 group/btn"
                 >
                     {adding ? 'Adding...' : 'Add Bundle to Cart'}
                     {!adding && <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />}
